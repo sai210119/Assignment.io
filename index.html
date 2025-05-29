@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Form</title>
+  <style>
+    form { width: 400px; margin: auto; padding: 1em; border: 1px solid #ccc; }
+    input, select, textarea { width: 100%; margin: 0.5em 0; }
+    button { width: 100%; padding: 0.5em; }
+  </style>
+</head>
+<body>
+  <h2 align="center">Registration Form</h2>
+  <form id="regForm" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="number" name="age" placeholder="Age" required>
+    <input type="date" name="dob" required>
+    <select name="gender"><option>Male</option><option>Female</option></select>
+    <input type="text" name="mobile" placeholder="Mobile Number" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <textarea name="address" placeholder="Address"></textarea>
+    <input type="text" name="state" placeholder="State">
+    <input type="text" name="pincode" placeholder="Pincode" required>
+    <input type="text" name="occupation" placeholder="Occupation">
+    <select name="marital_status"><option>Single</option><option>Married</option></select>
+    <input type="file" name="photo" accept="image/*" required>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById('regForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      const res = await fetch('http://localhost:3000/api/register', {
+        method: 'POST',
+        body: data
+      });
+      const result = await res.json();
+      alert(result.message || 'Error occurred');
+    });
+  </script>
+</body>
+</html>
